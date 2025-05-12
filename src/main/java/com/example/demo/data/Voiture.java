@@ -1,31 +1,30 @@
 package com.example.demo.data;
 
-import javax.persistence.*;
+import java.util.Objects;
 
-@Entity
 public class Voiture {
 
-    String marque;
-    int prix;
-    int id;
+    private String marque;
+    private double prix;
+
 
     public Voiture(){
     }
 
-    public Voiture(String marque, int prix) {
+    /**
+     * Constructeur
+     *
+     * L'id est généré automatiquement
+     * @param marque
+     * @param prix
+     */
+    public Voiture(String marque, double prix) {
         this.marque = marque;
         this.prix = prix;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
 
     public String getMarque() {
         return marque;
@@ -35,20 +34,26 @@ public class Voiture {
         this.marque = marque;
     }
 
-    public int getPrix() {
+    public double getPrix() {
         return prix;
     }
 
-    public void setPrix(int prix) {
+    public void setPrix(double prix) {
         this.prix = prix;
     }
 
     @Override
     public String toString() {
-        return "Car{" +
-                "marque='" + marque + '\'' +
-                ", prix=" + prix +
-                ", id=" + id +
-                '}';
+        return "\"Car\":{"
+                + "\"marque\":\"" + marque + "\","
+                + "\"prix\":" + prix +"}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Voiture voiture = (Voiture) o;
+        return Double.compare(getPrix(), voiture.getPrix()) == 0 && Objects.equals(getMarque(), voiture.getMarque());
     }
 }
